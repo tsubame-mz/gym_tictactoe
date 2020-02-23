@@ -1,0 +1,35 @@
+{
+    "python.venvPath": ".venv",
+    "python.pythonPath": ".venv/bin/python",
+    "python.autoComplete.addBrackets": true,
+    "python.jediEnabled": false,
+    // flake8
+    "python.linting.pylintEnabled": false,
+    "python.linting.lintOnSave": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--ignore=E203, E501, W503, W504"
+    ],
+    // mypy
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyArgs": [
+        "--ignore-missing-imports",
+        "--follow-imports=silent",
+        "--show-column-numbers"
+    ],
+    // black
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "120",
+        "--verbose"
+    ],
+    "python.sortImports.path": "isort",
+    // python
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    },
+}
