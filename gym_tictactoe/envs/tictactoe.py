@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple, Optional
 import gym
 import numpy as np
 
@@ -19,6 +19,8 @@ class TicTacToeEnv(gym.Env):
         self.board = np.full(self.NUM_CELLS, self.EMPTY).astype(int)
         self.player = self.BLACK
         self.done = False
+        self.current_legal_actions = self.legal_actions
+        self.winner: Optional[int] = None
         return self.get_obs()
 
     def step(self, action: int) -> Tuple:
@@ -32,7 +34,12 @@ class TicTacToeEnv(gym.Env):
             self.board[action] = self.player
             self.done = self.judge()
             reward = +1.0 if self.done else 0.0
+            self.winner = self.player if self.done else None
             self.player = (self.player + 1) % self.PLAYER_NUM
+
+        self.current_legal_actions = self.legal_actions
+        if len(self.current_legal_actions) == 0:
+            self.done = True
 
         return self.get_obs(), reward, self.done, {}
 
@@ -54,8 +61,12 @@ class TicTacToeEnv(gym.Env):
         pass
 
     def get_obs(self) -> np.ndarray:
-        self.current_legal_actions = self.legal_actions
-        return {"board": self.conditioned_board, "legal_actions": self.current_legal_actions, "to_play": self.player}
+        return {
+            "board": self.conditioned_board,
+            "legal_actions": self.current_legal_actions,
+            "to_play": self.player,
+            "winner": self.winner,
+        }
 
     def judge(self) -> bool:
         for mask in self.LINE_MASKS:
@@ -77,4 +88,5 @@ class TicTacToeEnv(gym.Env):
 
     @property
     def legal_actions(self) -> np.ndarray:
-        return np.where(self.board == self.EMPTY)[0].astype(np.int)
+        actions = np.where(self.board == self.EMPTY)[0]
+        return actions.astype(np.int) if len(actions) > 0 else []
