@@ -1,6 +1,6 @@
 {
     "python.venvPath": ".venv",
-    "python.pythonPath": ".venv/bin/python",
+    "python.pythonPath": ".venv\\Scripts\\python.exe",
     "python.autoComplete.addBrackets": true,
     "python.jediEnabled": false,
     // flake8

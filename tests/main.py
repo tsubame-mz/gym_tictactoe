@@ -9,7 +9,7 @@ import gym_tictactoe  # NOQA
 
 def test_normal():
     print("--- test_normal ---")
-    env = gym.make("tictactoe-v0")
+    env = gym.make("TicTacToe-v0")
     env.seed(0)
     obs = env.reset()
     done = False
@@ -28,7 +28,7 @@ def test_normal():
 
 def test_draw():
     print("--- test_draw ---")
-    env = gym.make("tictactoe-v0")
+    env = gym.make("TicTacToe-v0")
     obs = env.reset()
     done = False
     actions = [0, 1, 2, 3, 5, 4, 6, 8, 7]
